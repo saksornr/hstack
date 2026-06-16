@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>HTML Diagram Deck Template</title>
+    <link rel="stylesheet" href="./theme.css" />
+  </head>
+  <body>
+    <main class="stage">
+      <section class="slide" aria-label="Diagram slide">
+        <h1 class="title"></h1>
+        <p class="subtitle"></p>
+        <div class="top-rule"></div>
+        <div class="legend" aria-label="Diagram legend"></div>
+        <div class="diagram" aria-label="Diagram canvas">
+          <svg class="connector-layer" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+              <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+                <path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A93"></path>
+              </marker>
+            </defs>
+          </svg>
+        </div>
+        <div class="footer"></div>
+      </section>
+    </main>
+    <script type="module">
+      import { diagram } from "./diagram-data.mjs";
+
+      const slide = document.querySelector(".slide");
+      const diagramEl = document.querySelector(".diagram");
+      const connectorLayer = document.querySelector(".connector-layer");
+
+      slide.querySelector(".title").textContent = diagram.title;
+      slide.querySelector(".subtitle").textContent = diagram.subtitle;
+      slide.querySelector(".footer").textContent = diagram.footer;
+
+      const legend = slide.querySelector(".legend");
+      for (const item of diagram.legend) {
+        const entry = document.createElement("div");
+        entry.className = "legend-item";
+        const swatch = document.createElement("span");
+        swatch.className = `legend-swatch ${item.variant}`;
+        const label = document.createElement("span");
+        label.textContent = item.label;
+        entry.append(swatch, label);
+        legend.append(entry);
+      }
+
+      function place(el, item) {
+        el.style.left = `${item.x}%`;
+        el.style.top = `${item.y}%`;
+        el.style.width = `${item.w}%`;
+        el.style.height = `${item.h}%`;
+      }
+
+      for (const lane of diagram.lanes) {
+        const el = document.createElement("div");
+        el.className = "lane";
+        place(el, lane);
+        const label = document.createElement("div");
+        label.className = "lane-label";
+        label.textContent = lane.label;
+        el.append(label);
+        diagramEl.append(el);
+      }
+
+      for (const node of diagram.nodes) {
+        const el = document.createElement("article");
+        el.className = `node ${node.variant}`;
+        place(el, node);
+        const title = document.createElement("div");
+        title.className = "node-title";
+        title.textContent = node.label;
+        const list = document.createElement("ul");
+        list.className = "node-items";
+        for (const item of node.items || []) {
+          const li = document.createElement("li");
+          li.textContent = item;
+          list.append(li);
+        }
+        el.append(title, list);
+        diagramEl.append(el);
+      }
+
+      for (const note of diagram.notes || []) {
+        const el = document.createElement("aside");
+        el.className = "note";
+        el.textContent = note.text;
+        place(el, note);
+        diagramEl.append(el);
+      }
+
+      function svgEl(name) {
+        return document.createElementNS("http://www.w3.org/2000/svg", name);
+      }
+
+      for (const connector of diagram.connectors) {
+        const polyline = svgEl("polyline");
+        polyline.setAttribute("points", connector.points.map(([x, y]) => `${x},${y}`).join(" "));
+        polyline.setAttribute("class", `connector${connector.dashed ? " dashed" : ""}`);
+        polyline.setAttribute("marker-end", "url(#arrow)");
+        connectorLayer.append(polyline);
+
+        if (connector.label) {
+          const midpoint = connector.points[Math.floor(connector.points.length / 2)];
+          const label = document.createElement("div");
+          label.className = "connector-label";
+          label.textContent = connector.label;
+          label.style.left = `${midpoint[0]}%`;
+          label.style.top = `${midpoint[1]}%`;
+          diagramEl.append(label);
+        }
+      }
+    </script>
+  </body>
+</html>

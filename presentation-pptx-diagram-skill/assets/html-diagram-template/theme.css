@@ -1,0 +1,264 @@
+:root {
+  --primary: #9333EA;
+  --secondary: #A855F7;
+  --success: #10B981;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+  --surface: #FFFFFF;
+  --text: #09090B;
+  --muted: #71717A;
+  --line: #8A8A93;
+  --panel: #F8F5FF;
+  --process: #D8C6F7;
+  --data: #4B4B4F;
+  --guardrail: #0B7FCB;
+  --note: #FCE7F3;
+  --font-main: "Century Gothic", Arial, sans-serif;
+  --shadow-soft: 0 14px 32px rgba(44, 17, 86, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #F4F4F5;
+  color: var(--text);
+  font-family: var(--font-main);
+  letter-spacing: 0;
+}
+
+.stage {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.slide {
+  position: relative;
+  width: min(1280px, calc(100vw - 48px));
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--surface);
+  box-shadow: var(--shadow-soft);
+}
+
+.title {
+  position: absolute;
+  left: 2.5%;
+  top: 3%;
+  margin: 0;
+  color: #4C2887;
+  font-size: 32px;
+  line-height: 1.08;
+  font-weight: 400;
+}
+
+.subtitle {
+  position: absolute;
+  left: 2.7%;
+  top: 10%;
+  margin: 0;
+  color: #4C2887;
+  font-size: 13px;
+  line-height: 1.25;
+}
+
+.top-rule {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 12.2%;
+  height: 4px;
+  background: linear-gradient(90deg, #4C2887 0%, var(--primary) 62%, #DDD6FE 100%);
+}
+
+.legend {
+  position: absolute;
+  right: 2.4%;
+  top: 8%;
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  color: #4C2887;
+  font-size: 10px;
+}
+
+.legend-item {
+  display: inline-flex;
+  gap: 7px;
+  align-items: center;
+}
+
+.legend-swatch {
+  width: 20px;
+  height: 12px;
+  border-radius: 3px;
+  border: 1px solid #4C2887;
+  background: var(--process);
+}
+
+.legend-swatch.source {
+  background: var(--primary);
+}
+
+.legend-swatch.data {
+  background: var(--data);
+}
+
+.legend-swatch.dashed {
+  background: transparent;
+  border-style: dashed;
+}
+
+.diagram {
+  position: absolute;
+  inset: 14% 2% 8% 2%;
+}
+
+.lane,
+.node,
+.note {
+  position: absolute;
+}
+
+.lane {
+  border-top: 2px solid #E7E0F7;
+  border-bottom: 2px solid #E7E0F7;
+  background: rgba(248, 245, 255, 0.45);
+}
+
+.lane-label {
+  position: absolute;
+  left: 0;
+  top: -22px;
+  padding: 5px 9px;
+  color: #FFFFFF;
+  background: #4C2887;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.node {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  padding: 10px;
+  border: 1.5px solid transparent;
+  border-radius: 8px;
+  color: #FFFFFF;
+  text-align: center;
+  line-height: 1.14;
+  z-index: 3;
+}
+
+.node-title {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.node-items {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 10px;
+}
+
+.node.source {
+  background: var(--primary);
+}
+
+.node.process {
+  background: var(--process);
+  color: #FFFFFF;
+}
+
+.node.data {
+  background: var(--data);
+}
+
+.node.guardrail {
+  background: var(--guardrail);
+}
+
+.node.engine {
+  background: #4C2887;
+  border-radius: 20px;
+  padding: 12px;
+}
+
+.node.engine .node-items {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.node.engine .node-items li {
+  min-height: 42px;
+  display: grid;
+  place-items: center;
+  padding: 6px;
+  border-radius: 8px;
+  background: var(--secondary);
+  font-weight: 700;
+}
+
+.node.dashed {
+  background: rgba(255, 255, 255, 0.85);
+  color: #4C2887;
+  border-color: #4C2887;
+  border-style: dashed;
+}
+
+.note {
+  padding: 7px 9px;
+  border-left: 3px solid var(--secondary);
+  background: var(--note);
+  color: #52525B;
+  font-size: 10px;
+  line-height: 1.25;
+  z-index: 2;
+}
+
+.connector-layer {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+  z-index: 1;
+}
+
+.connector {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 1.2;
+}
+
+.connector.dashed {
+  stroke-dasharray: 6 5;
+}
+
+.connector-label {
+  position: absolute;
+  z-index: 4;
+  padding: 3px 5px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #52525B;
+  font-size: 9px;
+  line-height: 1.1;
+  transform: translate(-50%, -50%);
+}
+
+.footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 2.3%;
+  color: #8A8A93;
+  text-align: center;
+  font-size: 9px;
+}

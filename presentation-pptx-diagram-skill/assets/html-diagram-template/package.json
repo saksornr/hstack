@@ -1,0 +1,14 @@
+{
+  "name": "html-diagram-deck-template",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "preview": "python3 -m http.server 8765",
+    "export": "node export-pptx.mjs",
+    "check": "node --check export-pptx.mjs"
+  },
+  "dependencies": {
+    "pptxgenjs": "^3.12.0"
+  }
+}

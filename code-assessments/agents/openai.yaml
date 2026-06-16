@@ -1,0 +1,7 @@
+interface:
+  display_name: "Code Assessments"
+  short_description: "Create source-backed IO assessment reports."
+  brand_color: "#4B5563"
+  default_prompt: "Use $code-assessments to assess this module in detailed input/output table format."
+policy:
+  allow_implicit_invocation: true

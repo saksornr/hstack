@@ -1,0 +1,5 @@
+interface:
+  display_name: "Presentation PPTX Diagrams"
+  short_description: "Build editable HTML-preview diagram decks"
+  brand_color: "#9333EA"
+  default_prompt: "Use $presentation-pptx-diagram-skill to build a complex editable diagram deck from an HTML preview."
