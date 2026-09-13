@@ -1,4 +1,15 @@
 interface:
-  display_name: "One-Page Proposal Abstract Writing"
-  short_description: "Write focused, evidence-grounded proposal abstracts"
-  default_prompt: "Use $proposal-abstract-writing-onepage to turn my research notes into a one-page proposal abstract with a clear gap, study design, evaluation, and contribution."
+  display_name: One-Page Proposal Abstract Writing
+  short_description: Write focused, evidence-grounded proposal abstracts
+  default_prompt: Use $proposal-abstract-writing-onepage to turn my research notes
+    into a one-page proposal abstract with a clear gap, study design, evaluation,
+    and contribution.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

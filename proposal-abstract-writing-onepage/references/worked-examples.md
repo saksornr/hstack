@@ -1,6 +1,6 @@
 # Worked examples
 
-The two full abstracts below are edited teaching adaptations of the supplied proposals. They describe planned work, not verified findings. Exact model names, unverified literature claims, and quoted generation prices are omitted. They illustrate structure rather than a fixed template. No one-page rendering is claimed for these Markdown examples.
+The two full abstracts below are edited teaching adaptations of the supplied proposals. They describe planned work, not verified findings. Exact model names and quoted generation prices are omitted. Citations and reference entries below are reproduced or compactly formatted from the supplied documents; neither their metadata nor their supporting claims have been independently verified. Verify them before submission. They illustrate structure rather than a fixed template. No one-page rendering is claimed for these Markdown examples.
 
 ## Example 1: Turn an audit plan into a proposal abstract
 
@@ -14,13 +14,19 @@ The two full abstracts below are edited teaching adaptations of the supplied pro
 
 *Keywords: video generation, safety evaluation, temporal reasoning, provider effects*
 
-Safety evaluation of video generation must consider how events unfold across a clip, including relationships that individual scene descriptions may not reveal. Motivated by preliminary practitioner observations, this study asks whether unsafe continuations emerge when prompts specify an initial situation without fixing its endpoint. It also asks whether endpoint specification changes this behavior and whether observed patterns vary across model–provider configurations.
+T2VSafetyBench provides a framework for evaluating video-generation safety (Miao et al., 2024), while Between Safe Boundaries studies unsafe transitions between specified benign boundary states (Peng et al., 2026). Motivated by preliminary practitioner observations, this study asks whether unsafe continuations emerge when prompts specify an initial situation without fixing its endpoint. It also asks whether endpoint specification changes this behavior and whether observed patterns vary across model–provider configurations.
 
 We propose a preregistered, paired audit comparing endpoint-free prompts, matched prompts with specified initial and final states, and benign controls. A planned bank of 50–100 scenarios will support a staged evaluation, beginning with a balanced feasibility pilot. Prompts, scoring criteria, query limits, and sampling rules will be fixed before evaluation. Duration, resolution, and generation settings will be matched where supported, with deviations recorded. Where the same model is accessible through multiple providers, model and provider will be treated as separate factors; otherwise, comparisons will be limited to the observed configurations.
 
 Two reviewers, blinded to model, provider, and condition where feasible, will assess complete returned clips using a predefined safety rubric, with disagreements adjudicated. The primary outcome will be the proportion of evaluable requests returning a policy-violating video. Refusals will count as non-successes, while technical failures will be reported separately. Paired scenario-level comparisons and uncertainty intervals will accompany refusal rates, benign-control acceptance, latency, and cost. These measures will help distinguish observed safety differences from differences in availability or willingness to generate content. Provider differences will not be attributed to hidden moderation mechanisms without supporting evidence.
 
 We request a provisional THB 10,000 pilot budget to establish feasibility and inform the scale of a subsequent evaluation; this amount does not fund the complete multi-condition study. Testing will use authorized access and controlled handling of sensitive outputs. The expected contribution is evidence about the relationship between endpoint specification and observed video-generation safety under constrained resources. No success rates are assumed, and conclusions will remain limited to the tested scenarios, versions, providers, and generation settings.
+
+### References
+
+Miao, Y., Zhu, Y., Dong, Y., Yu, L., Zhu, J., & Gao, X.-S. (2024). T2VSafetyBench: Evaluating the safety of text-to-video generative models. arXiv:2407.05965. https://arxiv.org/abs/2407.05965
+
+Peng, X., Jiang, J., Liu, J., Chen, K., & Zhang, W. (2026). Between Safe Boundaries: Exploiting temporal consistency for jailbreaking text-to-video generation models. arXiv:2607.17279. https://arxiv.org/abs/2607.17279
 
 ### Why the revision works
 
@@ -40,19 +46,27 @@ The opening ends in an answerable question. The method maps endpoint specificati
 
 *Keywords: LLM agents, persona prompting, gender bias, professional tasks*
 
-Large language model agents are increasingly assigned human-like personas when completing professional tasks. A key evaluation question is whether minimal gender cues change the quality of the work they produce, beyond differences in how models describe gender and occupations. This study asks whether persona gender affects task performance, whether any effect varies with occupational gender composition or perceived stereotypes, and whether patterns are consistent across model families.
+Large language model agents are increasingly assigned human-like personas when completing professional tasks. Prior work examines the relationship between gender and occupation in model representations (An et al., 2025), but whether minimal gender cues change the quality of completed work remains an open question for this study. This study asks whether persona gender affects task performance, whether any effect varies with occupational gender composition or perceived stereotypes, and whether patterns are consistent across model families.
 
 We propose a preregistered, blocked experiment comparing man, woman, and gender-neutral persona cues while holding task, occupational role, available tools, decoding settings, and inference budget fixed. The design aims to isolate the effect of the specified persona wording within the tested conditions. Paired analyses within model-task-replicate blocks will estimate performance differences, using task-level uncertainty estimates and multiplicity-adjusted contrasts. Occupational employment shares will measure workforce composition, while independently collected ratings will measure perceived stereotypes. Treating these constructs separately will avoid interpreting employment composition as a direct measure of social beliefs.
 
-The planned evaluation will cover three open-weight model families using GDPval-derived professional tasks and MMLU-Pro reasoning questions. Model versions and availability will be confirmed before evaluation. Outputs will be scored without revealing the persona condition, with deliverable quality and reasoning accuracy as performance outcomes. Latency and token use will provide secondary efficiency measures. Comparisons across tasks and models will assess whether observed effects are consistent or restricted to particular evaluation settings, rather than relying on a single overall performance difference.
+The planned evaluation will cover three open-weight model families using GDPval-derived professional tasks (Patwardhan et al., 2025) and MMLU-Pro reasoning questions (Wang et al., 2024). Model versions and availability will be confirmed before evaluation. Outputs will be scored without revealing the persona condition, with deliverable quality and reasoning accuracy as performance outcomes. Latency and token use will provide secondary efficiency measures. Comparisons across tasks and models will assess whether observed effects are consistent or restricted to particular evaluation settings, rather than relying on a single overall performance difference.
 
 The expected contribution is an audit of whether minimal persona cues affect completed work products under controlled task conditions. The study extends the evaluation question from gender associations to the quality of agent outputs without assuming that a performance difference will occur. Any alignment with occupational stereotypes will be interpreted as model sensitivity to social cues, not as evidence of innate gender differences. Conclusions will remain limited to the tested models, persona wording, tasks, scoring procedures, and inference conditions.
+
+### References
+
+An, H., Baumler, C., Sancheti, A., & Rudinger, R. (2025). On the mutual influence of gender and occupation in LLM representations. Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics, 1663–1680. https://doi.org/10.18653/v1/2025.acl-long.83
+
+Patwardhan, T., et al. (2025). GDPval: Evaluating AI model performance on real-world economically valuable tasks. arXiv:2510.04374. https://doi.org/10.48550/arXiv.2510.04374
+
+Wang, Y., et al. (2024). MMLU-Pro: A more robust and challenging multi-task language understanding benchmark. arXiv:2406.01574. https://doi.org/10.48550/arXiv.2406.01574
 
 ### Why the revision works
 
 The draft names the manipulated variable and the conditions held fixed. Each question has an analysis: paired contrasts for persona effects, separate composition and stereotype measures for alignment, and model comparisons for consistency. It preserves the planned status and narrows interpretation to model behavior. Exact candidate model versions are not promoted from an unverified draft into established facts.
 
-**Notes to keep outside a submission:** Verify dataset references and selected models. Clarify the scoring rubric and the primary outcome hierarchy before preregistration. Do not invent a sample size or power calculation to fill this gap.
+**Notes to keep outside a submission:** Verify dataset references and selected models. Expand abbreviated author lists if required by the venue; the supplied entries use “et al.”. Add a citation for the specific employment dataset once selected. Clarify the scoring rubric and the primary outcome hierarchy before preregistration. Do not invent a sample size or power calculation to fill this gap.
 
 ## Sentence-level repairs
 
