@@ -2,7 +2,7 @@
 
 A collection of reusable agent skills, research workflows, and design references for building higher-quality technical outputs with Codex and other AI-assisted development workflows.
 
-The repository focuses on practical, source-grounded work: code assessment, literature review, research-paper writing, editable PowerPoint diagrams, and reusable design-system references.
+The repository focuses on practical, source-grounded work: code assessment, literature review, research-paper writing, executive consulting narratives, editable PowerPoint diagrams, and reusable design-system references.
 
 ## Contents
 
@@ -12,6 +12,7 @@ The repository focuses on practical, source-grounded work: code assessment, lite
 | [`extensive-literature-review/`](./extensive-literature-review/) | Run structured literature reviews from papers, URLs, DOIs, PDFs, BibTeX, or citation exports and synthesize findings into a critical review. |
 | [`research-paper-writing/`](./research-paper-writing/) | Draft and revise ML/CV/NLP-style research papers with stronger structure, paragraph flow, claim-to-evidence alignment, and reviewer-facing presentation. |
 | [`presentation-pptx-diagram-skill/`](./presentation-pptx-diagram-skill/) | Build dense corporate/process diagrams from an HTML preview and export editable PowerPoint slides with PptxGenJS. |
+| [`executive-consulting/`](./executive-consulting/) | Frame executive decisions, consulting frameworks, strategic roadmaps, and polished Thai/English slide storyboards. |
 | [`design_skills/`](./design_skills/) | Reusable design-system references extracted for consistent visual styling across generated interfaces and artifacts. |
 
 ## Skills
@@ -78,6 +79,14 @@ The bundled template in [`assets/html-diagram-template/`](./presentation-pptx-di
 
 It is intended for system architectures, process maps, swimlanes, data flows, workflow engines, legends, and other dense diagrams where the exported slide should remain editable.
 
+### Executive Consulting
+
+[`executive-consulting/SKILL.md`](./executive-consulting/SKILL.md) turns business notes and rough decks into evidence-backed executive narratives and consulting-style presentations.
+
+It covers decision framing, hypothesis-driven diagnosis, framework selection, value cases, key pillars, strategic roadmaps, and slide design. Supporting references include a Thai/English revenue recovery example with a reconciled illustrative waterfall. It complements the diagram skill and uses available presentation tooling for editable deck production.
+
+Example: `Use $executive-consulting to turn these notes into a Thai executive deck with key pillars, a strategic roadmap, and a clear decision ask.`
+
 ## Design References
 
 The [`design_skills/`](./design_skills/) directory contains reusable visual specifications that can be used as references when generating interfaces or presentation artifacts.
@@ -101,6 +110,10 @@ hstack/
 │   └── agents/
 ├── design_skills/
 │   └── *-DESIGN.md
+├── executive-consulting/
+│   ├── SKILL.md
+│   ├── agents/
+│   └── references/
 ├── extensive-literature-review/
 │   └── SKILL.md
 ├── presentation-pptx-diagram-skill/
@@ -123,6 +136,7 @@ For example:
 
 ```text
 code-assessments/SKILL.md
+executive-consulting/SKILL.md
 extensive-literature-review/SKILL.md
 research-paper-writing/SKILL.md
 presentation-pptx-diagram-skill/SKILL.md

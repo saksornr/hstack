@@ -1,0 +1,4 @@
+interface:
+  display_name: "Executive Consulting"
+  short_description: "Frame executive decisions and polished consulting slides"
+  default_prompt: "Use $executive-consulting to turn these notes into an evidence-backed executive storyline and polished slide deck with key pillars, a strategic roadmap, and a clear decision ask."
