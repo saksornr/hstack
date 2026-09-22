@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SEATauBench — Findings of EMNLP 2026</title>
+  <meta name="description" content="SEATauBench: progressively adapting tool-agent-user evaluation into low-resource Southeast Asian languages. Findings of EMNLP 2026.">
+  <meta name="theme-color" content="#ffffff">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="SEATauBench — Findings of EMNLP 2026">
+  <meta property="og:description" content="Evaluating multilingual agents through localized dialogue, tools, and task environments.">
+  <meta name="citation_title" content="SEATauBench: Progressively Adapting Tool-Agent-User Evaluation Into Low-Resource Southeast Asian Languages">
+  <meta name="citation_author" content="My Chiffon Nguyen">
+  <meta name="citation_author" content="Aulia Adila">
+  <meta name="citation_author" content="Saksorn Ruangtanusak">
+  <meta name="citation_author" content="Kittiphat Leesombatwathana">
+  <meta name="citation_author" content="Vissuta Gunawan Lim">
+  <meta name="citation_author" content="Patomporn Payoungkhamdee">
+  <meta name="citation_author" content="Samuel Cahyawijaya">
+  <meta name="citation_publication_date" content="2026/06/27">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2606.28715v2">
+  <link rel="icon" href="assets/icons/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" sizes="180x180">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="stylesheet" href="assets/style.css">
+  <script src="assets/site.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#abstract">Skip to abstract</a>
+<main>
+  <header>
+    <h1>SEATauBench: Progressively Adapting Tool-Agent-User Evaluation Into Low-Resource Southeast Asian Languages</h1>
+    <p class="venue">Findings of EMNLP 2026</p>
+    <p class="authors"><span><a href="https://mychiffonn.com/">My Chiffon Nguyen</a><sup>1</sup></span>, <span>Aulia Adila<sup>1,2</sup></span>, <span><a href="https://saksorn.com/">Saksorn Ruangtanusak</a><sup>1,3</sup></span>, <span>Kittiphat Leesombatwathana<sup>1,4,5,*</sup></span>, <span><a href="https://vissutalim.com/">Vissuta Gunawan Lim</a><sup>1,6</sup></span>, <span><a href="https://calzonelover.github.io/">Patomporn Payoungkhamdee</a><sup>1,5</sup></span>, <span><a href="https://samuelcahyawijaya.github.io/">Samuel Cahyawijaya</a><sup>1,7</sup></span></p>
+    <p class="affiliations"><span><sup>1</sup>SEACrowd</span> <span><sup>2</sup>AI Singapore, Nanyang Technological University</span> <span><sup>3</sup>SCB DataX, SCBX Group</span> <span><sup>4</sup>Chulalongkorn University</span> <span><sup>5</sup>VISTEC</span> <span><sup>6</sup>University of Indonesia</span> <span><sup>7</sup>Cohere</span></p>
+    <p class="author-note">* Most of this work was conducted while Kittiphat Leesombatwathana was at Chulalongkorn University.</p>
+    <div class="resources">
+      <p><strong>Paper:</strong> <a href="https://arxiv.org/abs/2606.28715">arxiv.org/abs/2606.28715</a></p>
+      <p><strong>Code &amp; data:</strong> <a href="https://github.com/SEACrowd/SEATauBench">github.com/SEACrowd/SEATauBench</a></p>
+    </div>
+  </header>
+
+  <figure class="overview">
+    <a href="assets/figures/overview.jpg" aria-label="Open the overview figure at full size"><img src="assets/figures/overview.jpg" width="2544" height="738" alt="Three side-by-side examples of the same retail task: the English benchmark setting, a Southeast Asian language interaction setting, and a fully localized Thai environment. The task is to change the color of an ordered hat."></a>
+    <figcaption>Progressive localization of a tool-agent-user task. Examples from Figure 1 of the paper. <a href="assets/figures/overview.jpg">View full size</a>.</figcaption>
+  </figure>
+
+  <section id="abstract" aria-labelledby="abstract-title">
+    <h2 id="abstract-title">Abstract</h2>
+    <p>While AI development and evaluation for Southeast Asia (SEA) has grown rapidly, agent capabilities in regional languages are still poorly understood despite its importance to sovereign AI. To fill this gap, we introduce <strong class="highlight">SEATauBench, the first agent-focused evaluation framework for SEA sovereign AI.</strong> It adapts τ<sup>2</sup>-Bench to five languages—Mandarin, Vietnamese, Thai, Indonesian, and Filipino—and evaluates agents across progressively localized settings that vary the language of user-agent interaction, tool specifications, and task domains.</p>
+    <p>Across three models, we find that English agent capabilities transfer reasonably well when only the conversation language changes, but quality and robustness degrade sharply as more task contexts are localized, with the largest losses in full domain adaptation. We also highlight the limits of English-only agent assessment for predicting agent capabilities in SEA languages. More broadly, SEATauBench provides a diagnostic benchmark and reusable adaptation pipeline for building reliable multilingual agents for linguistically diverse regions.</p>
+    <p class="note">SEATauBench is pronounced “si-tau-bench,” like the Filipino word for string beans, “sitaw.”</p>
+  </section>
+
+  <section aria-labelledby="scenarios-title">
+    <h2 id="scenarios-title">Progressively localizing agent evaluation</h2>
+    <p>Four controlled settings separate multilingual dialogue, tool understanding, and domain reasoning. L2 denotes a target language: Mandarin Chinese, Vietnamese, Thai, Indonesian, or Filipino. Tasks span <strong>retail, airline, and telecom</strong>.</p>
+    <div class="table-wrap" role="region" aria-label="Localization scenarios" tabindex="0">
+      <table>
+        <caption>Which parts of the task environment are localized?</caption>
+        <thead><tr><th scope="col">Scenario</th><th scope="col">Dialogue</th><th scope="col">Tool schemas</th><th scope="col">Database &amp; policy</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">S1 · English Baseline</th><td>English</td><td>English</td><td>English</td></tr>
+          <tr><th scope="row">S2 · L2 Interaction</th><td>L2</td><td>English</td><td>English</td></tr>
+          <tr><th scope="row">S3 · L2 Tool</th><td>English</td><td>L2</td><td>English</td></tr>
+          <tr><th scope="row">S4 · L2 Domain</th><td>L2</td><td>L2</td><td>L2</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><strong>S2 and S3 isolate different surfaces:</strong> S3 keeps the conversation in English while localizing tool schemas. S4 localizes the whole agent-facing environment, while task definitions, executable behavior, and expected final states remain equivalent to the English benchmark.</p>
+  </section>
+
+  <section aria-labelledby="pipeline-title">
+    <h2 id="pipeline-title">Localize the context, preserve the execution</h2>
+    <p>The adaptation pipeline combines offline translation with runtime localization. A glossary guides translation while executable tokens are protected. At runtime, localized tool arguments are mapped back to canonical values, and evaluation uses equivalent final states. Automated checks and native speaker review assess translation quality.</p>
+    <figure>
+      <a href="assets/figures/pipeline.png" aria-label="Open the localization pipeline at full size"><img src="assets/figures/pipeline.png" width="1780" height="672" loading="lazy" alt="Pipeline with three stages: offline translation with protected tokens and a glossary; runtime localization with canonical execution and scoring; and automated audits plus native speaker review."></a>
+      <figcaption>Offline translation, runtime localization, and translation audits. Figure 2 of the paper, with the caption summarized here. <a href="assets/figures/pipeline.png">View full size</a>.</figcaption>
+    </figure>
+    <p class="note">The paper distinguishes the frozen experiment snapshot from a reviewed release containing approved translation corrections.</p>
+  </section>
+
+  <section aria-labelledby="findings-title">
+    <h2 id="findings-title">Task success falls as the environment is localized</h2>
+    <p><strong class="highlight">Changing the conversation language alone preserves much of the English performance. Fully localizing the task environment exposes a larger gap.</strong> Reported mean pass@1 is 0.62 for the English Baseline, 0.61 for L2 Interaction, 0.55 for L2 Tool, and 0.51 for L2 Domain.</p>
+    <p class="note">These aggregate comparisons are descriptive: L2 Tool includes two agents, while the other settings include three. The gap varies by language, model, and domain; it cannot be attributed to script type alone.</p>
+    <figure>
+      <a href="assets/figures/localization-results.png" aria-label="Open the localization results at full size"><img src="assets/figures/localization-results.png" width="1818" height="994" loading="lazy" alt="Five language panels compare task success and robustness across English Baseline, L2 Interaction, L2 Tool, and L2 Domain, showing the largest task-success losses in the fully localized setting."></a>
+      <figcaption>Task quality (pass@1) and repeated-run robustness (ρ³) across localization settings and languages. Figure 3 of the paper. <a href="assets/figures/localization-results.png">View full size</a>.</figcaption>
+    </figure>
+  </section>
+
+  <section aria-labelledby="robustness-title">
+    <h2 id="robustness-title">Quality and robustness tell different stories</h2>
+    <p>Pass@1 measures mean task success; robustness, ρ³ = pass³ / pass@1, measures repeated success relative to single-run success. <strong class="highlight">A model can be consistent on the tasks it solves without solving a large share of tasks.</strong> Both metrics are needed to understand multilingual agent reliability.</p>
+    <p>No agent leads in every condition. In L2 Domain, Kimi-K2.5 has the highest mean pass@1 (0.61), while Qwen3-235B has the highest mean ρ³ (0.63), ahead of GPT-5-mini (0.62) and Kimi-K2.5 (0.59).</p>
+    <figure>
+      <a href="assets/figures/model-results.png" aria-label="Open the model comparison at full size"><img src="assets/figures/model-results.png" width="1796" height="554" loading="lazy" alt="Radar charts compare three models across six languages for task quality and robustness. Adjacent plots compare English and non-English means in retail, airline, and telecom."></a>
+      <figcaption>Quality and robustness across models, languages, and service domains. Figure 4 of the paper. <a href="assets/figures/model-results.png">View full size</a>.</figcaption>
+    </figure>
+    <p>See the <a href="https://arxiv.org/html/2606.28715v2#S6">paper’s diagnostic analysis</a> for critical errors, language correctness, and the limits of English-only evaluation as a proxy for multilingual reliability.</p>
+  </section>
+
+  <section aria-labelledby="citation-title">
+    <div class="citation-heading"><h2 id="citation-title">BibTeX</h2><button id="copy-citation" type="button" hidden>Copy BibTeX</button></div>
+    <pre tabindex="0" aria-label="BibTeX citation"><code id="bibtex">@misc{nguyen2026seataubench,
+  title={SEATauBench: Progressively Adapting Tool-Agent-User Evaluation Into Low-Resource Southeast Asian Languages},
+  author={My Chiffon Nguyen and Aulia Adila and Saksorn Ruangtanusak and Kittiphat Leesombatwathana and Vissuta Gunawan Lim and Patomporn Payoungkhamdee and Samuel Cahyawijaya},
+  year={2026},
+  eprint={2606.28715},
+  archivePrefix={arXiv},
+  primaryClass={cs.CL},
+  url={https://arxiv.org/abs/2606.28715}
+}</code></pre>
+    <p id="copy-status" class="note" role="status" aria-live="polite"></p>
+  </section>
+</main>
+</body>
+</html>
