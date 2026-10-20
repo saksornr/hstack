@@ -1,0 +1,4 @@
+interface:
+  display_name: "Slide Polish"
+  short_description: "Visually review, repair, and verify slide decks"
+  default_prompt: "Use $slide-polish to inspect my presentation visually, fix concrete defects, and verify the final export."

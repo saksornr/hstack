@@ -1,0 +1,21 @@
+{
+  "input_revision_or_hash": null,
+  "output_revision_or_hash": null,
+  "slide_count": null,
+  "renderer": null,
+  "reviewed_on": null,
+  "reviewed_slides": [],
+  "issues": [
+    {
+      "example_only": true,
+      "slide_id": "REPLACE",
+      "region": "Main source figure",
+      "severity": "P1",
+      "observation": "Important labels are unreadable at presentation size.",
+      "repair": "Enlarge a labeled detail while preserving the complete map for orientation.",
+      "status": "unverified"
+    }
+  ],
+  "final_visual_review_complete": false,
+  "limitations": []
+}

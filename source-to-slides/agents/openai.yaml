@@ -1,0 +1,4 @@
+interface:
+  display_name: "Source to Slides"
+  short_description: "Research and build image-led technical slides"
+  default_prompt: "Use $source-to-slides to research my topic and create source-led, editable slides with a visual quality check."

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>Source to Slides — six reusable layouts</title>
+<style>
+:root{--purple:#7f268d;--ink:#17171c;--muted:#585560;--soft:#f8f5fa;--line:#e3dce7;--green:#21583d}
+*{box-sizing:border-box}body{margin:0;background:#ece9ef;color:var(--ink);font-family:Poppins,Lato,Arial,sans-serif}
+a{color:inherit}button{font:inherit;cursor:pointer;border:1px solid var(--purple);border-radius:8px;padding:10px 16px;background:white;color:var(--purple)}button:focus-visible,a:focus-visible{outline:3px solid #2176b5;outline-offset:4px}
+.toolbar{max-width:1280px;margin:24px auto;padding:0 20px;display:flex;gap:24px;align-items:center;justify-content:space-between;font-size:16px;line-height:1.5}.toolbar strong{font-size:22px}.toolbar small{display:block;color:var(--muted)}
+.deck{max-width:1280px;margin:0 auto}.frame{width:100%;aspect-ratio:16/9;position:relative;margin-bottom:14px;overflow:hidden;background:white;box-shadow:0 5px 22px #20102412}
+.slide{position:absolute;width:1280px;height:720px;transform-origin:top left;padding:42px 56px 62px;background:white;overflow:hidden}
+header{height:70px;display:flex;align-items:flex-start;justify-content:space-between;border-bottom:2px solid var(--purple);gap:30px}h1,h2,h3,p{margin:0}h2{font-size:38px;line-height:1.2;letter-spacing:-.7px;max-width:1010px}h3{font-size:25px;line-height:1.35}.tag,.eyebrow{font-size:14px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;color:var(--purple)}.tag{padding:9px 12px;background:#f3ebf5;border-radius:7px;white-space:nowrap}
+footer{position:absolute;bottom:0;left:0;right:0;height:31px;padding:7px 56px;background:var(--purple);color:white;font-size:13px;display:flex;justify-content:space-between;letter-spacing:.4px}.source{position:absolute;left:56px;right:56px;bottom:44px;color:var(--muted);font-size:14px;line-height:1.35}
+.content{margin-top:32px}.two-col{display:grid;grid-template-columns:1.45fr 1fr;gap:45px}.body{font-size:25px;line-height:1.4}.body p+p{margin-top:23px}.body strong{color:var(--purple)}.callout{font-size:22px;line-height:1.4;border-left:4px solid var(--purple);padding-left:18px;color:var(--muted)}
+.cover h1{font-size:80px;line-height:1.03;letter-spacing:-3px;margin-top:42px;max-width:720px}.cover .intro{font-size:27px;line-height:1.4;max-width:610px;margin-top:28px;color:var(--muted)}.cover .promise{margin-top:28px;font-size:20px;color:var(--purple);font-weight:700}.cover .index{position:absolute;right:65px;top:190px;width:290px;border-left:2px solid var(--line);padding-left:32px}.index div{padding:18px 0;border-bottom:1px solid var(--line)}.index b{display:block;font-size:32px}.index span{font-size:18px;color:var(--muted)}.cover .strip{position:absolute;left:56px;right:56px;bottom:103px;background:var(--soft);padding:20px 25px;font-size:20px;display:flex;justify-content:space-between}
+.figure-slot{height:342px;background:var(--soft);border:1px solid var(--line);border-radius:12px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}.figure-slot img{display:block;width:100%;height:100%;object-fit:contain}.placeholder{text-align:center;max-width:650px;padding:28px}.placeholder h3{font-size:29px}.placeholder p{font-size:20px;line-height:1.45;color:var(--muted);margin:15px 0 19px}.figure-note{display:flex;justify-content:space-between;gap:36px;margin-top:24px;font-size:24px;line-height:1.35}.figure-note p{flex:1}.figure-note .caveat{font-size:19px;color:var(--muted);max-width:405px}
+.code-panel{background:#17151d;color:#f5eef7;border-radius:14px;padding:27px 29px;min-height:382px}.code-label{font-size:14px;color:#dcb3e4;font-weight:700;letter-spacing:1px}.code-panel pre{font:20px/1.65 "DejaVu Sans Mono",Consolas,monospace;margin:24px 0 0;white-space:pre-wrap;overflow-wrap:normal}.code-panel .comment{color:#bcabbf}.steps .num{font-size:15px;color:var(--purple);display:block;margin-bottom:6px}.steps h3{margin-bottom:6px}.steps section+section{margin-top:27px}.steps p{font-size:22px;line-height:1.35;color:var(--muted)}
+.chart{border-radius:14px;background:var(--soft);padding:29px 30px 23px}.chart .metric{font-size:17px;color:var(--muted);margin:9px 0 25px}.row{display:grid;grid-template-columns:105px 1fr 57px;gap:16px;align-items:center;margin:25px 0;font-size:19px}.track{height:35px;border-left:1px solid #b5a5bd}.bar{height:100%;background:#b895c1}.row.baseline-row .bar{background:#bcb5c0}.row.best-row .bar{background:var(--purple)}.value{font-size:24px;font-weight:700}.axis{position:relative;height:20px;margin:0 73px 0 121px;font-size:14px;color:var(--muted)}.axis span{position:absolute;transform:translateX(-50%)}.axis span:nth-child(1){left:0}.axis span:nth-child(2){left:50%}.axis span:nth-child(3){left:100%}.chart .caveat{font-size:17px;line-height:1.35;color:var(--muted);margin-top:26px}.synthetic{font-size:14px;font-weight:700;color:var(--purple);letter-spacing:.8px;text-transform:uppercase}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:24px}.panel{padding:26px 25px;border:1px solid var(--line);border-radius:14px;min-height:350px}.baseline{background:#fcf3f4}.candidate{background:#f1f8f4}.panel h3{font-size:17px;text-transform:uppercase;letter-spacing:1px;margin-bottom:24px}.panel p{font-size:24px;line-height:1.4}.panel .small{font-size:20px;color:var(--muted);margin-top:27px}.candidate ol{font-size:21px;line-height:1.5;padding-left:23px;margin:0}.gate{font-size:23px;line-height:1.4}.gate section+section{margin-top:24px}.gate h3{font-size:21px;color:var(--purple);margin-bottom:6px}.gate p{font-size:21px;line-height:1.4}.freeze{font-size:18px;color:var(--purple);font-weight:700;margin-top:18px}.intro-label{font-size:16px;color:var(--muted);margin:20px 0}
+.closing{background:#2d1035;color:white}.closing header{border-color:#885893}.closing .tag{color:#f1dff6;background:#55325f}.closing h2{font-size:36px}.closing h1{font-size:61px;line-height:1.16;letter-spacing:-1.4px;max-width:1020px;margin-top:63px}.closing .lead{font-size:23px;color:#dfcde5;margin-top:27px;max-width:995px;line-height:1.45}.closing .evidence{position:absolute;bottom:119px;left:56px;right:56px;border-top:1px solid #896391;padding-top:23px;display:flex;justify-content:space-between;gap:20px;font-size:18px;color:#efe4f1}.closing footer{background:#7f268d}.closing .source{color:#ccb6d2}
+details.notes{margin:0 10px 25px;padding:13px 20px;background:#fff;border-radius:8px;font-size:16px;line-height:1.5}details.notes p{margin-top:10px}.print-note{font-size:16px;color:var(--muted)}
+@media print{@page{size:1280px 720px;margin:0}html,body{width:1280px;margin:0;background:white;-webkit-print-color-adjust:exact;print-color-adjust:exact}.toolbar,details.notes{display:none!important}.deck{width:1280px;max-width:none;margin:0}.frame{width:1280px;height:720px;aspect-ratio:auto;margin:0;box-shadow:none;break-after:page;page-break-after:always}.frame:last-of-type{break-after:auto;page-break-after:auto}.slide{transform:none!important}.placeholder button{display:none}}
+</style>
+</head>
+<body>
+<div class="toolbar"><div><strong>Source to Slides</strong><small>Six original layout specimens. Edit the HTML/CSS, or use the slide recipes in your authoring tool.</small></div><button id="print">Print / save PDF</button></div>
+<main class="deck">
+<div class="frame"><article class="slide cover" aria-label="Slide 1: opening">
+<div class="eyebrow">Technical storytelling / reusable example</div>
+<h1>Make technical<br>ideas visible.</h1>
+<p class="intro">Start with the audience’s question.<br>Build the story around evidence.<br>Give the visual room to explain.</p>
+<p class="promise">A source-led presentation, not a page of notes.</p>
+<div class="index"><div><b>01 / Question</b><span>What should they understand?</span></div><div><b>02 / Evidence</b><span>What will make it clear?</span></div><div><b>03 / Action</b><span>What should happen next?</span></div></div>
+<div class="strip"><span>Research the source</span><span>Choose the exhibit</span><span>Verify the final slide</span></div>
+<p class="source">Original layout specimen. No affiliation with a company or course. Replace with your topic and audience.</p>
+<footer><span>SOURCE TO SLIDES</span><span>01 / 06 — OPENING</span></footer>
+</article></div>
+<details class="notes"><summary>Recipe and presenter notes</summary><p>Use a topic, a learning promise, and a clear route. Add the presenter only when supplied. This original typographic composition is a neutral template, not a borrowed source image.</p></details>
+<div class="frame"><article class="slide" aria-label="Slide 2: original source exhibit">
+<header><h2>Actions bring new evidence into the loop.</h2><span class="tag">Mechanism</span></header>
+<div class="content"><div class="figure-slot" id="figure-slot"><div class="placeholder" id="figure-placeholder"><div class="eyebrow">Original published figure / optional remote asset</div><h3 style="margin-top:15px">ReAct: the HotpotQA example</h3><p>This slot preserves the complete figure and its aspect ratio. Load the author’s public image to examine one action–observation pair.</p><button id="load-figure">Load original ReAct figure</button><p class="print-note" id="figure-status" role="status">No external image is loaded automatically.</p></div></div><div class="figure-note"><p>Follow the action, its observation,<br>and the next decision.</p><p class="caveat">One trajectory explains a mechanism.<br>It does not prove production reliability.</p></div></div>
+<p class="source">Source: <a href="https://react-lm.github.io/" target="_blank" rel="noopener noreferrer">ReAct project and authors</a>. External figure not bundled; check reuse terms for your intended distribution.</p>
+<footer><span>SOURCE TO SLIDES</span><span>02 / 06 — SOURCE EXHIBIT</span></footer>
+</article></div>
+<details class="notes"><summary>Recipe and presenter notes</summary><p>Use a genuine source figure rather than a screenshot of an entire webpage. The opt-in button makes a request only to react-lm.github.io. It preserves the original graphic; no user file is sent. Inspect the complete image before citing its mechanism. This gallery’s default PDF leaves the external-figure slot visible.</p></details>
+<div class="frame"><article class="slide" aria-label="Slide 3: implementation contract">
+<header><h2>A contract makes the boundary testable.</h2><span class="tag">Implementation</span></header>
+<div class="content two-col"><div class="code-panel"><div class="code-label">ILLUSTRATIVE PSEUDOCODE — NOT AN SDK</div><pre><span class="comment"># One isolated case</span>
+case = load_fixture("case-001")
+world = reset_environment(
+    case.initial_state)
+
+run = adapter.start(case.input, world)
+trace = adapter.collect(run)
+score = verify(world.snapshot(),
+               case.expected_state)</pre></div><div class="steps"><section><span class="num">01 / INPUT</span><h3>Freeze the starting fixture.</h3><p>Define the goal and initial state before the run begins.</p></section><section><span class="num">02 / EXECUTION</span><h3>Keep the evidence.</h3><p>Record actions, observations, failures, and timing.</p></section><section><span class="num">03 / VERIFICATION</span><h3>Check outside the agent.</h3><p>Read authoritative state, not just a completion message.</p></section></div></div>
+<p class="source">Original teaching example. Functions are illustrative; no provider compatibility or execution result is claimed.</p>
+<footer><span>SOURCE TO SLIDES</span><span>03 / 06 — CODE + EXPLANATION</span></footer>
+</article></div>
+<details class="notes"><summary>Recipe and presenter notes</summary><p>Show the minimum code needed to teach the boundary. A runnable example needs actual documented symbols, package/version, setup, and test results. Explain the independent verifier and distinguish a trace from proof of success.</p></details>
+<div class="frame"><article class="slide" aria-label="Slide 4: measured evidence layout with synthetic values">
+<header><h2>Compare candidates on the same task.</h2><span class="tag">Evidence</span></header>
+<div class="content two-col"><div class="chart"><div class="synthetic">Synthetic layout data / not a research result</div><h3 style="margin-top:14px">Task success rate</h3><p class="metric">Percent of cases passed — higher is better</p><div class="row baseline-row"><span>Baseline</span><div class="track"><div class="bar" style="width:60%"></div></div><span class="value">60%</span></div><div class="row"><span>Candidate A</span><div class="track"><div class="bar" style="width:72%"></div></div><span class="value">72%</span></div><div class="row best-row"><span>Candidate B</span><div class="track"><div class="bar" style="width:79%"></div></div><span class="value">79%</span></div><div class="axis"><span>0</span><span>50</span><span>100%</span></div><p class="caveat">Replace with a verified, comparable result.<br>No company, product, or method owns these values.</p></div><div class="body"><h3 style="color:var(--purple);margin-bottom:23px">What makes the comparison valid?</h3><p><strong>Same conditions.</strong><br>Dataset, split, budget, and metric.</p><p><strong>Explain the change.</strong><br>What changed? What stayed fixed?</p><p><strong>Keep the limitation.</strong><br>Uncertainty, safety, and scope.</p></div></div>
+<p class="source">Original chart using synthetic values. A real result needs an original source, version, denominator, and caveat.</p>
+<footer><span>SOURCE TO SLIDES</span><span>04 / 06 — RESULT + INTERPRETATION</span></footer>
+</article></div>
+<details class="notes"><summary>Recipe and presenter notes</summary><p>These values are invented solely to demonstrate the layout and zero-baseline scale. Do not use them in a factual talk. A real figure must disclose enough evaluation context for a meaningful comparison, and must not imply significance without evidence.</p></details>
+<div class="frame"><article class="slide" aria-label="Slide 5: candidate revision and release gate">
+<header><h2>A candidate revision must earn its release.</h2><span class="tag">Experiment</span></header>
+<p class="intro-label">Illustrative prompt revision — not an optimizer output or a measured improvement.</p>
+<div class="two-col" style="grid-template-columns:1.65fr 1fr;gap:34px"><div><div class="compare"><div class="panel baseline"><h3>Baseline prompt</h3><p>“Resolve this<br>support request.”</p><p class="small">No explicit policy check.<br>No final-state verification.</p></div><div class="panel candidate"><h3>Candidate prompt</h3><ol><li>Confirm the goal.</li><li>Retrieve the policy.</li><li>Check authorization.</li><li>Use scoped tools.</li><li>Verify the final state.</li></ol></div></div><p class="freeze">Keep tools, permissions, fixtures, and verifier fixed.</p></div><div class="gate"><section><h3>DEVELOP</h3><p>Generate candidates using development feedback.</p></section><section><h3>SELECT</h3><p>Compare on validation data under matched conditions.</p></section><section><h3>VERIFY</h3><p>Protect the final test set. Require safety checks before release.</p></section></div></div>
+<p class="source">Original teaching example. Objective: improve task success subject to safety constraints and a defined cost/latency budget.</p>
+<footer><span>SOURCE TO SLIDES</span><span>05 / 06 — BEFORE + CANDIDATE</span></footer>
+</article></div>
+<details class="notes"><summary>Recipe and presenter notes</summary><p>The panels compare two illustrative instructions, not experimental outcomes. Repeated selection on a final test set contaminates its value even when the cases themselves never change. Keep source-supported results separate from teaching examples.</p></details>
+<div class="frame"><article class="slide closing" aria-label="Slide 6: closing research question">
+<header><h2>End with the question your evidence raises.</h2><span class="tag">Open question</span></header>
+<h1>What evidence would you need<br>before this system acts<br>for real users?</h1>
+<p class="lead">An impressive demonstration is a starting point.<br>The closing question should connect the mechanism, evaluation, and consequences.</p>
+<div class="evidence"><span>Requirements coverage</span><span>Independent tests</span><span>Safety & recovery</span><span>Accountable owner</span></div>
+<p class="source">Original discussion prompt. Replace the scenario and evidence categories to match your topic.</p>
+<footer><span>SOURCE TO SLIDES</span><span>06 / 06 — CLOSING QUESTION</span></footer>
+</article></div>
+<details class="notes"><summary>Recipe and presenter notes</summary><p>Pause for an audience response. Ask for concrete evidence rather than general confidence. Do not introduce an unverified benchmark solely to make the ending dramatic.</p></details>
+</main>
+<script>
+'use strict';
+function fit(){document.querySelectorAll('.frame').forEach(frame=>{frame.firstElementChild.style.transform='scale('+frame.clientWidth/1280+')';});}
+window.addEventListener('resize',fit);fit();
+document.getElementById('print').addEventListener('click',()=>window.print());
+document.getElementById('load-figure').addEventListener('click',function(){
+  const button=this,status=document.getElementById('figure-status');
+  button.disabled=true;status.textContent='Loading the public source image…';
+  const img=new Image();img.alt='Original ReAct HotpotQA example comparing answer-only, reasoning-only, action-only, and interleaved reasoning/action trajectories.';img.referrerPolicy='no-referrer';
+  img.onload=()=>{const slot=document.getElementById('figure-slot');slot.replaceChildren(img);};
+  img.onerror=()=>{status.textContent='Image unavailable. Use the source link below; do not substitute a fake figure.';button.disabled=false;};
+  img.src='https://react-lm.github.io/files/hotpotqa.png';
+});
+</script>
+</body>
+</html>

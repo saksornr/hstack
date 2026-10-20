@@ -1,0 +1,41 @@
+{
+  "id": "mechanism-example",
+  "mode": "single-slide",
+  "title": "Actions bring new evidence into the reasoning loop",
+  "role": "mechanism",
+  "audience": "Engineers familiar with LLM APIs",
+  "speaking_seconds": 90,
+  "layout": "full-width-exhibit",
+  "claim": {
+    "text": "ReAct interleaves reasoning and actions with observations from an environment.",
+    "evidence_class": "source-supported",
+    "source_url": "https://react-lm.github.io/",
+    "source_location": "ReAct Prompting / HotpotQA Example",
+    "checked_on": "2026-10-20",
+    "caveat": "One trajectory illustrates a mechanism; it does not establish production reliability."
+  },
+  "visual": {
+    "type": "original-published-figure",
+    "source_page": "https://react-lm.github.io/",
+    "asset_url": "https://react-lm.github.io/files/hotpotqa.png",
+    "creator": "ReAct authors",
+    "reuse_status": "Check applicable reuse terms before redistribution; no image bytes bundled.",
+    "crop": "none",
+    "alt_text": "Side-by-side task trajectories contrasting answer-only, reasoning-only, action-only, and ReAct approaches.",
+    "caption": "Original HotpotQA example from the ReAct project."
+  },
+  "visible_explanation": [
+    "Inspect the action, the returned observation, and the next decision."
+  ],
+  "speaker_notes": {
+    "explanation": "Point to an action/observation pair and explain how new evidence informs a subsequent step.",
+    "limitation": "Do not call historical benchmark claims current SOTA.",
+    "transition": "Next, define the tools and authoritative state the loop can access."
+  },
+  "quality_gate": {
+    "source_checked": true,
+    "rendered": false,
+    "visually_reviewed": false,
+    "native_editability_checked": false
+  }
+}
