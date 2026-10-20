@@ -48,13 +48,25 @@ The gallery is an example/template, not a completed research presentation. Third
 
 In a repository-aware chat, ask the agent to read `source-to-slides/SKILL.md` and follow it. Copy or symlink the entire directory—not only the Markdown file—when installing into a skill-aware client.
 
-For Codex local discovery, the documented user directory is `~/.agents/skills`. From a local clone of hstack:
+For Codex local discovery, the documented user directory is `~/.agents/skills`. From the root of a local hstack clone, this example checks both destinations before creating links and refuses to replace an existing installation:
 
 ```bash
-mkdir -p "$HOME/.agents/skills"
-# These commands fail rather than replace an existing installation.
-ln -s "$PWD/source-to-slides" "$HOME/.agents/skills/source-to-slides"
-ln -s "$PWD/slide-polish" "$HOME/.agents/skills/slide-polish"
+(
+  set -eu
+  root="$PWD"
+  mkdir -p "$HOME/.agents/skills"
+  for name in source-to-slides slide-polish; do
+    test -f "$root/$name/SKILL.md" || { echo "Run from the hstack root" >&2; exit 1; }
+    dest="$HOME/.agents/skills/$name"
+    if [ -e "$dest" ] || [ -L "$dest" ]; then
+      echo "Already exists: $dest" >&2
+      exit 1
+    fi
+  done
+  for name in source-to-slides slide-polish; do
+    ln -s "$root/$name" "$HOME/.agents/skills/$name"
+  done
+)
 ```
 
 Invoke the installed skill by name, or explicitly request `$source-to-slides` where the client supports that syntax. Installing instructions does not grant browsing or Google Slides permissions. Check the client's current documentation for other installation methods.
