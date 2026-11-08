@@ -1,0 +1,4 @@
+interface:
+  display_name: "Thinking Like a Theorist"
+  short_description: "Model problems, select tools, and audit proofs"
+  default_prompt: "Use $thinking-like-a-theorist to formalize my problem, choose a proof strategy, and check the assumptions."
